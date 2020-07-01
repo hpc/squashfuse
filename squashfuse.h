@@ -31,5 +31,6 @@
 #include "traverse.h"
 #include "util.h"
 #include "xattr.h"
+#include "ops.h"
 
 #endif
