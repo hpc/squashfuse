@@ -67,7 +67,7 @@ static void sqfs_hl_op_destroy(void *user_data) {
 	free(hl);
 }
 
-static void *sqfs_hl_op_init(struct fuse_conn_info *conn
+void *sqfs_hl_op_init(struct fuse_conn_info *conn
 #if FUSE_USE_VERSION >= 30
 			     ,struct fuse_config *cfg
 #endif
