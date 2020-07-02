@@ -206,7 +206,7 @@ int sqfs_hl_op_read(const char *path, char *buf, size_t size,
 	return osize;
 }
 
-static int sqfs_hl_op_readlink(const char *path, char *buf, size_t size) {
+int sqfs_hl_op_readlink(const char *path, char *buf, size_t size) {
 	sqfs *fs;
 	sqfs_inode inode;
 	if (sqfs_hl_lookup(&fs, &inode, path))
@@ -220,7 +220,7 @@ static int sqfs_hl_op_readlink(const char *path, char *buf, size_t size) {
 	return 0;
 }
 
-static int sqfs_hl_op_listxattr(const char *path, char *buf, size_t size) {
+int sqfs_hl_op_listxattr(const char *path, char *buf, size_t size) {
 	sqfs *fs;
 	sqfs_inode inode;
 	int ferr;

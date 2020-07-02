@@ -185,7 +185,33 @@ int sqfs_hl_op_read(const char *path, char *buf, size_t size,
         return osize;
 }
 
+ int sqfs_hl_op_readlink(const char *path, char *buf, size_t size) {
+	sqfs *fs;
+	sqfs_inode inode;
+	if (sqfs_hl_lookup(&fs, &inode, path))
+		return -ENOENT;
+	
+	if (!S_ISLNK(inode.base.mode)) {
+		return -EINVAL;
+	} else if (sqfs_readlink(fs, &inode, buf, &size)) {
+		return -EIO;
+	}	
+	return 0;
+}
 
+int sqfs_hl_op_listxattr(const char *path, char *buf, size_t size) {
+	sqfs *fs;
+	sqfs_inode inode;
+	int ferr;
+	
+	if (sqfs_hl_lookup(&fs, &inode, path))
+		return -ENOENT;
+
+	ferr = sqfs_listxattr(fs, &inode, buf, &size);
+	if (ferr)
+		return -ferr;
+	return size;
+}
 /**
 int sqfs_hl_op_getxattr(const char *path, const char *name,
                 char *value, size_t size

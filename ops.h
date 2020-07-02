@@ -5,7 +5,7 @@
 #include "squashfuse.h"
 
 #include "stat.h"
-
+#include "fuse_common.h"
 #include "nonstd.h"
 #include "fuse.h"
 
@@ -51,5 +51,8 @@ extern int sqfs_hl_op_release(const char *path, struct fuse_file_info *fi);
 
 extern int sqfs_hl_op_read(const char *path, char *buf, size_t size,
                 off_t off, struct fuse_file_info *fi);
+
+extern int sqfs_hl_op_readlink(const char *path, char *buf, size_t size);
+extern int sqfs_hl_op_listxattr(const char *path, char *buf, size_t size);
 
 #endif
