@@ -5,7 +5,6 @@
 #include "squashfuse.h"
 
 #include "stat.h"
-#include "fuse_common.h"
 #include "nonstd.h"
 #include "fuse.h"
 
