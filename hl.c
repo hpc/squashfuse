@@ -41,7 +41,7 @@ struct sqfs_hl {
 	sqfs_inode root;
 };*/
 
-static sqfs_err sqfs_hl_lookup(sqfs **fs, sqfs_inode *inode,
+sqfs_err sqfs_hl_lookup(sqfs **fs, sqfs_inode *inode,
 		const char *path) {
 	bool found;
 	
@@ -75,7 +75,7 @@ void *sqfs_hl_op_init(struct fuse_conn_info *conn
 	return fuse_get_context()->private_data;
 }
 
-static int sqfs_hl_op_getattr(const char *path, struct stat *st
+int sqfs_hl_op_getattr(const char *path, struct stat *st
 #if FUSE_USE_VERSION >= 30
 			      , struct fuse_file_info *fi
 #endif
@@ -234,7 +234,7 @@ static int sqfs_hl_op_listxattr(const char *path, char *buf, size_t size) {
 	return size;
 }
 
-static int sqfs_hl_op_getxattr(const char *path, const char *name,
+int sqfs_hl_op_getxattr(const char *path, const char *name,
 		char *value, size_t size
 #ifdef FUSE_XATTR_POSITION
 		, uint32_t position

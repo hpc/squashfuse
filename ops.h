@@ -25,4 +25,11 @@ struct sqfs_hl {
 	sqfs_inode root;
 };
 extern void sqfs_hl_op_destroy(void *user_data);
+
+extern int sqfs_hl_op_getxattr(const char *path, const char *name,
+                char *value, size_t size
+#ifdef FUSE_XATTR_POSITION
+                , uint32_t position
+#endif
+                ) ;
 #endif
