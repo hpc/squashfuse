@@ -188,13 +188,13 @@ int sqfs_hl_op_create(const char* unused_path, mode_t unused_mode,
 		struct fuse_file_info *unused_fi) {
 	return -EROFS;
 }
-static int sqfs_hl_op_release(const char *path, struct fuse_file_info *fi) {
+int sqfs_hl_op_release(const char *path, struct fuse_file_info *fi) {
 	free((sqfs_inode*)(intptr_t)fi->fh);
 	fi->fh = 0;
 	return 0;
 }
 
-static int sqfs_hl_op_read(const char *path, char *buf, size_t size,
+int sqfs_hl_op_read(const char *path, char *buf, size_t size,
 		off_t off, struct fuse_file_info *fi) {
 	sqfs *fs;
 	sqfs_hl_lookup(&fs, NULL, NULL);

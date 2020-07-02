@@ -167,6 +167,25 @@ int sqfs_hl_op_create(const char* unused_path, mode_t unused_mode,
 	return -EROFS;
 }
 
+int sqfs_hl_op_release(const char *path, struct fuse_file_info *fi) {
+        free((sqfs_inode*)(intptr_t)fi->fh);
+        fi->fh = 0;
+        return 0;
+}
+
+int sqfs_hl_op_read(const char *path, char *buf, size_t size,
+                off_t off, struct fuse_file_info *fi) {
+        sqfs *fs;
+        sqfs_hl_lookup(&fs, NULL, NULL);
+        sqfs_inode *inode = (sqfs_inode*)(intptr_t)fi->fh;
+
+        off_t osize = size;
+        if (sqfs_read_range(fs, inode, off, &osize, buf))
+                return -EIO;
+        return osize;
+}
+
+
 /**
 int sqfs_hl_op_getxattr(const char *path, const char *name,
                 char *value, size_t size
