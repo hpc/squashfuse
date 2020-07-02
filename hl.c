@@ -113,14 +113,14 @@ int sqfs_hl_op_opendir(const char *path, struct fuse_file_info *fi) {
 	return 0;
 }
 
-static int sqfs_hl_op_releasedir(const char *path,
+int sqfs_hl_op_releasedir(const char *path,
 		struct fuse_file_info *fi) {
 	free((sqfs_inode*)(intptr_t)fi->fh);
 	fi->fh = 0;
 	return 0;
 }
 
-static int sqfs_hl_op_readdir(const char *path, void *buf,
+int sqfs_hl_op_readdir(const char *path, void *buf,
 		fuse_fill_dir_t filler, off_t offset, struct fuse_file_info *fi
 #if FUSE_USE_VERSION >= 30
 	,enum fuse_readdir_flags flags

@@ -91,6 +91,52 @@ int sqfs_hl_op_getattr(const char *path, struct stat *st
 	return 0;
 }
 
+int sqfs_hl_op_releasedir(const char *path,
+                struct fuse_file_info *fi) {
+        free((sqfs_inode*)(intptr_t)fi->fh);
+        fi->fh = 0;
+        return 0;
+}
+
+int sqfs_hl_op_readdir(const char *path, void *buf,
+                fuse_fill_dir_t filler, off_t offset, struct fuse_file_info *fi
+#if FUSE_USE_VERSION >= 30
+        ,enum fuse_readdir_flags flags
+#endif
+        ) {
+        sqfs_err err;
+        sqfs *fs;
+        sqfs_inode *inode;
+        sqfs_dir dir;
+        sqfs_name namebuf;
+        sqfs_dir_entry entry;
+        struct stat st;
+
+        sqfs_hl_lookup(&fs, NULL, NULL);
+        inode = (sqfs_inode*)(intptr_t)fi->fh;
+
+        if (sqfs_dir_open(fs, inode, &dir, offset))
+                return -EINVAL;
+
+        memset(&st, 0, sizeof(st));
+        sqfs_dentry_init(&entry, namebuf);
+        while (sqfs_dir_next(fs, &dir, &entry, &err)) {
+                sqfs_off_t doff = sqfs_dentry_next_offset(&entry);
+                st.st_mode = sqfs_dentry_mode(&entry);
+                if (filler(buf, sqfs_dentry_name(&entry), &st, doff
+#if FUSE_USE_VERSION >= 30
+                           , 0
+#endif
+                     )) {
+                        return 0;
+                }
+        }
+        if (err)
+                return -EIO;
+        return 0;
+}
+
+
 /**
 int sqfs_hl_op_getxattr(const char *path, const char *name,
                 char *value, size_t size
