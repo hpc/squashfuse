@@ -19,4 +19,6 @@ extern void *sqfs_hl_op_init(struct fuse_conn_info *conn
                              ,struct fuse_config *cfg
 #endif
                              ) ;
+
+extern void sqfs_hl_op_destroy(void *user_data);
 #endif

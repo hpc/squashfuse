@@ -27,3 +27,8 @@ void *sqfs_hl_op_init(struct fuse_conn_info *conn
 	return fuse_get_context()->private_data;
 }
 
+static void sqfs_hl_op_destroy(void *user_data) {
+	sqfs_hl *hl = (sqfs_hl*)user_data;
+	sqfs_destroy(&hl->fs);
+	free(hl);
+}
