@@ -212,7 +212,13 @@ int sqfs_hl_op_listxattr(const char *path, char *buf, size_t size) {
 		return -ferr;
 	return size;
 }
-/**
+
+int sqfs_hl_op_statfs(const char *path, struct statvfs *st) {
+        sqfs_hl *hl = fuse_get_context()->private_data;
+        return sqfs_statfs(&hl->fs, st);
+}
+
+
 int sqfs_hl_op_getxattr(const char *path, const char *name,
                 char *value, size_t size
 #ifdef FUSE_XATTR_POSITION
@@ -239,4 +245,4 @@ int sqfs_hl_op_getxattr(const char *path, const char *name,
                 return -ERANGE;
         return real;
 }
-*/ 
+

@@ -261,7 +261,7 @@ int sqfs_hl_op_getxattr(const char *path, const char *name,
 	return real;
 }
 
-static int sqfs_hl_op_statfs(const char *path, struct statvfs *st) {
+int sqfs_hl_op_statfs(const char *path, struct statvfs *st) {
 	sqfs_hl *hl = fuse_get_context()->private_data;
 	return sqfs_statfs(&hl->fs, st);
 }

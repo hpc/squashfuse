@@ -53,5 +53,13 @@ extern int sqfs_hl_op_read(const char *path, char *buf, size_t size,
 
 extern int sqfs_hl_op_readlink(const char *path, char *buf, size_t size);
 extern int sqfs_hl_op_listxattr(const char *path, char *buf, size_t size);
+int sqfs_hl_op_statfs(const char *path, struct statvfs *st);
+
+int sqfs_hl_op_getxattr(const char *path, const char *name,
+                char *value, size_t size
+#ifdef FUSE_XATTR_POSITION
+                , uint32_t position
+#endif
+                );
 
 #endif
