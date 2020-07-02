@@ -62,4 +62,6 @@ int sqfs_hl_op_getxattr(const char *path, const char *name,
 #endif
                 );
 
+
+//extern fuse_operations get_fuse_ops();
 #endif
