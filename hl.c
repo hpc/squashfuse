@@ -35,11 +35,11 @@
 #include <string.h>
 
 
-typedef struct sqfs_hl sqfs_hl;
+/*typedef struct sqfs_hl sqfs_hl;
 struct sqfs_hl {
 	sqfs fs;
 	sqfs_inode root;
-};
+};*/
 
 static sqfs_err sqfs_hl_lookup(sqfs **fs, sqfs_inode *inode,
 		const char *path) {
@@ -61,7 +61,7 @@ static sqfs_err sqfs_hl_lookup(sqfs **fs, sqfs_inode *inode,
 }
 
 
-static void sqfs_hl_op_destroy(void *user_data) {
+void sqfs_hl_op_destroy(void *user_data) {
 	sqfs_hl *hl = (sqfs_hl*)user_data;
 	sqfs_destroy(&hl->fs);
 	free(hl);
