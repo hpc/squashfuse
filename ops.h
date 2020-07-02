@@ -7,7 +7,7 @@
 #include "stat.h"
 
 #include "nonstd.h"
-//#include "fs.h"
+#include "fuse.h"
 
 #ifndef SQFS_OPS_H
 #define SQFS_OPS_H
