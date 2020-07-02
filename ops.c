@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-
+#include "fs.h"
 #include "ops.h"
 
 void hello_world ( )
