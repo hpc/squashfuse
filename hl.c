@@ -158,7 +158,7 @@ int sqfs_hl_op_readdir(const char *path, void *buf,
 	return 0;
 }
 
-static int sqfs_hl_op_open(const char *path, struct fuse_file_info *fi) {
+int sqfs_hl_op_open(const char *path, struct fuse_file_info *fi) {
 	sqfs *fs;
 	sqfs_inode *inode;
 	
@@ -184,7 +184,7 @@ static int sqfs_hl_op_open(const char *path, struct fuse_file_info *fi) {
 	return 0;
 }
 
-static int sqfs_hl_op_create(const char* unused_path, mode_t unused_mode,
+int sqfs_hl_op_create(const char* unused_path, mode_t unused_mode,
 		struct fuse_file_info *unused_fi) {
 	return -EROFS;
 }

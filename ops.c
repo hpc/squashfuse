@@ -136,6 +136,36 @@ int sqfs_hl_op_readdir(const char *path, void *buf,
         return 0;
 }
 
+int sqfs_hl_op_open(const char *path, struct fuse_file_info *fi) {
+	sqfs *fs;
+	sqfs_inode *inode;
+	
+	if (fi->flags & (O_WRONLY | O_RDWR))
+		return -EROFS;
+	
+	inode = malloc(sizeof(*inode));
+	if (!inode)
+		return -ENOMEM;
+	
+	if (sqfs_hl_lookup(&fs, inode, path)) {
+		free(inode);
+		return -ENOENT;
+	}
+	
+	if (!S_ISREG(inode->base.mode)) {
+		free(inode);
+		return -EISDIR;
+	}
+	
+	fi->fh = (intptr_t)inode;
+	fi->keep_cache = 1;
+	return 0;
+}
+
+int sqfs_hl_op_create(const char* unused_path, mode_t unused_mode,
+		struct fuse_file_info *unused_fi) {
+	return -EROFS;
+}
 
 /**
 int sqfs_hl_op_getxattr(const char *path, const char *name,
