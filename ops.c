@@ -69,6 +69,27 @@ int sqfs_hl_op_getattr(const char *path, struct stat *st
 
         return 0;
 }
+ int sqfs_hl_op_opendir(const char *path, struct fuse_file_info *fi) {
+	sqfs *fs;
+	sqfs_inode *inode;
+	
+	inode = malloc(sizeof(*inode));
+	if (!inode)
+		return -ENOMEM;
+	
+	if (sqfs_hl_lookup(&fs, inode, path)) {
+		free(inode);
+		return -ENOENT;
+	}
+		
+	if (!S_ISDIR(inode->base.mode)) {
+		free(inode);
+		return -ENOTDIR;
+	}
+	
+	fi->fh = (intptr_t)inode;
+	return 0;
+}
 
 /**
 int sqfs_hl_op_getxattr(const char *path, const char *name,

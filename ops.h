@@ -31,4 +31,5 @@ int sqfs_hl_op_getattr(const char *path, struct stat *st
                               , struct fuse_file_info *fi
 #endif
                               );
+int sqfs_hl_op_opendir(const char *path, struct fuse_file_info *fi);
 #endif

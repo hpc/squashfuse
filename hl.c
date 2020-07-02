@@ -91,7 +91,7 @@ int sqfs_hl_op_getattr(const char *path, struct stat *st
 	return 0;
 }
 
-static int sqfs_hl_op_opendir(const char *path, struct fuse_file_info *fi) {
+int sqfs_hl_op_opendir(const char *path, struct fuse_file_info *fi) {
 	sqfs *fs;
 	sqfs_inode *inode;
 	
