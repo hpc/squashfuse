@@ -33,7 +33,7 @@ libsquashfuse_la_SOURCES = swap.c cache.c table.c dir.c file.c fs.c \
 	util.h fs.h ops.h
 libsquashfuse_la_CPPFLAGS = $(ZLIB_CPPFLAGS) $(XZ_CPPFLAGS) $(LZO_CPPFLAGS) \
 	$(LZ4_CPPFLAGS) $(ZSTD_CPPFLAGS)
-libsquashfuse_la_LIBADD = $(FUSE_LIBS)
+libsquashfuse_la_LIBADD = libfuseprivate.la $(FUSE_LIBS)
 
 if SQ_WANT_FUSE
 # Helper for FUSE clients: libfuseprivate
