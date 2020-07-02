@@ -54,6 +54,23 @@ void sqfs_hl_op_destroy(void *user_data) {
 	free(hl);
 }
 
+int sqfs_hl_op_getattr(const char *path, struct stat *st
+#if FUSE_USE_VERSION >= 30
+                              , struct fuse_file_info *fi
+#endif
+                              ) {
+        sqfs *fs;
+        sqfs_inode inode;
+        if (sqfs_hl_lookup(&fs, &inode, path))
+                return -ENOENT;
+
+        if (sqfs_stat(fs, &inode, st))
+                return -ENOENT;
+
+        return 0;
+}
+
+/**
 int sqfs_hl_op_getxattr(const char *path, const char *name,
                 char *value, size_t size
 #ifdef FUSE_XATTR_POSITION
@@ -65,7 +82,7 @@ int sqfs_hl_op_getxattr(const char *path, const char *name,
         size_t real = size;
 
 #ifdef FUSE_XATTR_POSITION
-        if (position != 0) /* We don't support resource forks */
+        if (position != 0) 
                 return -EINVAL;
 #endif
 
@@ -80,4 +97,4 @@ int sqfs_hl_op_getxattr(const char *path, const char *name,
                 return -ERANGE;
         return real;
 }
-
+*/ 

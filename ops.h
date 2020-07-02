@@ -26,10 +26,9 @@ struct sqfs_hl {
 };
 extern void sqfs_hl_op_destroy(void *user_data);
 
-extern int sqfs_hl_op_getxattr(const char *path, const char *name,
-                char *value, size_t size
-#ifdef FUSE_XATTR_POSITION
-                , uint32_t position
+int sqfs_hl_op_getattr(const char *path, struct stat *st
+#if FUSE_USE_VERSION >= 30
+                              , struct fuse_file_info *fi
 #endif
-                ) ;
+                              );
 #endif
