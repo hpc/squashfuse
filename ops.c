@@ -199,6 +199,27 @@ int sqfs_hl_op_read(const char *path, char *buf, size_t size,
 	return 0;
 }
 
+sqfs_hl *sqfs_hl_open(const char *path, size_t offset) {
+        sqfs_hl *hl;
+
+        hl = malloc(sizeof(*hl));
+        if (!hl) {
+                perror("Can't allocate memory");
+        } else {
+                memset(hl, 0, sizeof(*hl));
+                if (sqfs_open_image(&hl->fs, path, offset) == SQFS_OK) {
+                        if (sqfs_inode_get(&hl->fs, &hl->root, sqfs_inode_root(&hl->fs)))
+                                fprintf(stderr, "Can't find the root of this filesystem!\n");
+                        else
+                                return hl;
+                        sqfs_destroy(&hl->fs);
+                }
+
+                free(hl);
+        }
+        return NULL;
+}
+
 int sqfs_hl_op_listxattr(const char *path, char *buf, size_t size) {
 	sqfs *fs;
 	sqfs_inode inode;
@@ -245,4 +266,5 @@ int sqfs_hl_op_getxattr(const char *path, const char *name,
                 return -ERANGE;
         return real;
 }
+
 
