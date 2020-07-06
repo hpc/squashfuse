@@ -11,6 +11,8 @@
 #ifndef SQFS_OPS_H
 #define SQFS_OPS_H
 
+typedef struct fuse_operations fuse_operations;
+
 extern void hello_world ( );
 
 extern void *sqfs_hl_op_init(struct fuse_conn_info *conn

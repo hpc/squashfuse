@@ -1,7 +1,7 @@
 #include "squashfuse.h"
 #include "fuseprivate.h"
 #include "stat.h"
-
+//#include <fuse.h>
 #include "nonstd.h"
 
 #include <errno.h>
@@ -284,5 +284,5 @@ fuse_operations *get_fuse_ops(){
         sqfs_hl_ops.listxattr   = sqfs_hl_op_listxattr;
         sqfs_hl_ops.getxattr    = sqfs_hl_op_getxattr;
         sqfs_hl_ops.statfs    = sqfs_hl_op_statfs;
-        return &sqfs_hl_ops;
+        return sqfs_hl_ops;
 }
