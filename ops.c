@@ -267,7 +267,7 @@ int sqfs_hl_op_getxattr(const char *path, const char *name,
         return real;
 }
 
-fuse_operations *get_fuse_ops(){
+fuse_operations get_fuse_ops(){
        struct fuse_operations sqfs_hl_ops;
         memset(&sqfs_hl_ops, 0, sizeof(sqfs_hl_ops));
         sqfs_hl_ops.init                        = sqfs_hl_op_init;

@@ -6,13 +6,23 @@
 
 #include "stat.h"
 #include "nonstd.h"
-#include "fuse.h"
+
 
 #ifndef SQFS_OPS_H
 #define SQFS_OPS_H
 
+enum fuse_fill_dir_flags {
+         FUSE_FILL_DIR_PLUS = (1 << 1),
+ };
 typedef struct fuse_operations fuse_operations;
+typedef int (*fuse_fill_dir_t) (void *buf, const char *name,
+                                 const struct stat *stbuf, off_t off);
 
+typedef struct off_t offset;
+typedef struct fuse_file_info *fi;
+typedef struct statvfs *st; 
+
+typedef struct fuse_conn_info *conn;
 extern void hello_world ( );
 
 extern void *sqfs_hl_op_init(struct fuse_conn_info *conn
