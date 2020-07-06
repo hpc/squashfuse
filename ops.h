@@ -75,5 +75,5 @@ int sqfs_hl_op_getxattr(const char *path, const char *name,
                 );
 
 
-//extern fuse_operations get_fuse_ops();
+extern void get_fuse_ops(fuse_operations *sqfs_hl_ops);
 #endif
