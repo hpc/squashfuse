@@ -268,8 +268,8 @@ int sqfs_hl_op_getxattr(const char *path, const char *name,
 }
 
 void get_fuse_ops(fuse_operations *sqfs_hl_ops){
-        memset(&sqfs_hl_ops, 0, sizeof(sqfs_hl_ops));
-        (*sqfs_hl_ops).init                        = &sqfs_hl_op_init;
+        memset(sqfs_hl_ops, 0, sizeof(*sqfs_hl_ops));
+        sqfs_hl_ops->init                        = sqfs_hl_op_init;
         (*sqfs_hl_ops).destroy             = &sqfs_hl_op_destroy;
         (*sqfs_hl_ops).getattr             = &sqfs_hl_op_getattr;
         (*sqfs_hl_ops).opendir             = &sqfs_hl_op_opendir;
