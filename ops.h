@@ -76,4 +76,6 @@ int sqfs_hl_op_getxattr(const char *path, const char *name,
 
 
 extern void get_fuse_ops(fuse_operations *sqfs_hl_ops);
+
+extern sqfs_hl *sqfs_hl_open(const char *path, size_t offset);
 #endif

@@ -267,7 +267,7 @@ int sqfs_hl_op_statfs(const char *path, struct statvfs *st) {
 }
 
 
-static sqfs_hl *sqfs_hl_open(const char *path, size_t offset) {
+sqfs_hl *sqfs_hl_open(const char *path, size_t offset) {
 	sqfs_hl *hl;
 	
 	hl = malloc(sizeof(*hl));
