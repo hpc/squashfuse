@@ -1,7 +1,6 @@
 #include "squashfuse.h"
 #include "fuseprivate.h"
 #include "stat.h"
-//#include <fuse.h>
 #include "nonstd.h"
 
 #include <errno.h>
@@ -266,7 +265,7 @@ int sqfs_hl_op_getxattr(const char *path, const char *name,
                 return -ERANGE;
         return real;
 }
-
+/** returns fuse_operations struct populated with function pointers to above operation functions*/
 void get_fuse_ops(fuse_operations *sqfs_hl_ops){
         memset(sqfs_hl_ops, 0, sizeof(*sqfs_hl_ops));
         sqfs_hl_ops->init                        = sqfs_hl_op_init;
