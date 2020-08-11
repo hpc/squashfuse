@@ -219,6 +219,28 @@ sqfs_hl *sqfs_hl_open(const char *path, size_t offset) {
         return NULL;
 }
 
+
+bool sqfs_hl_check(const char *path, size_t offset) {
+        sqfs_hl *hl;
+        sqfs_fd_t fd;
+
+        hl = malloc(sizeof(*hl));
+        if (!hl) {
+                perror("Can't allocate memory");
+        } else {
+                memset(hl, 0, sizeof(*hl));
+                fd = open(path, O_RDONLY);
+                if(fd != -1 ){
+                    if(sqfs_init(&hl->fs, fd, offset) == SQFS_OK){
+                        return true;
+                    }
+                }
+                sqfs_destroy(&hl->fs);
+                free(hl);
+        }
+        return false;
+}
+
 int sqfs_hl_op_listxattr(const char *path, char *buf, size_t size) {
 	sqfs *fs;
 	sqfs_inode inode;

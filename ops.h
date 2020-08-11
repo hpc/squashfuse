@@ -19,5 +19,6 @@ struct sqfs_hl {
 
 extern void get_fuse_ops(fuse_operations *sqfs_hl_ops);
 
+extern bool sqfs_hl_check(const char *path, size_t offset);
 extern sqfs_hl *sqfs_hl_open(const char *path, size_t offset);
 #endif
