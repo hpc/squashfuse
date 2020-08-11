@@ -12,11 +12,7 @@
 #include "fs.h"
 #include "ops.h"
 
-void hello_world ( )
-{
-	printf("Hello World \n");
-
-}
+/*this creates fuse_operation to use to set up a fuse session*/
 
 static sqfs_err sqfs_hl_lookup(sqfs **fs, sqfs_inode *inode,
                 const char *path) {
@@ -36,8 +32,6 @@ static sqfs_err sqfs_hl_lookup(sqfs **fs, sqfs_inode *inode,
         }
         return SQFS_OK;
 }
-
-
 
 void *sqfs_hl_op_init(struct fuse_conn_info *conn
 #if FUSE_USE_VERSION >= 30
@@ -68,6 +62,7 @@ int sqfs_hl_op_getattr(const char *path, struct stat *st
 
         return 0;
 }
+
  int sqfs_hl_op_opendir(const char *path, struct fuse_file_info *fi) {
 	sqfs *fs;
 	sqfs_inode *inode;
@@ -287,7 +282,9 @@ int sqfs_hl_op_getxattr(const char *path, const char *name,
                 return -ERANGE;
         return real;
 }
-/** returns fuse_operations struct populated with function pointers to above operation functions*/
+
+/** returns fuse_operations struct populated with 
+ * function pointers to above operation functions*/
 void get_fuse_ops(fuse_operations *sqfs_hl_ops){
         memset(sqfs_hl_ops, 0, sizeof(*sqfs_hl_ops));
         sqfs_hl_ops->init                        = sqfs_hl_op_init;
